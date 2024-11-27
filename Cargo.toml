@@ -1,0 +1,46 @@
+[package]
+name = "projeto-integrador-v-b-esp"
+version = "0.1.0"
+authors = ["artur.peixoto <arturokfya@gmail.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+esp-hal             = { version = "0.21.1", features = ["esp32", "xtensa" ] }
+esp-backtrace       = { version = "0.14.2", features = ["esp32", "panic-handler", "println", ] }
+esp-println         = { version = "0.12.0", features = ["esp32", "log"] }
+esp-alloc           = { version = "0.5.0"  }
+esp-hal-embassy     = { version = "0.4.0", features = ["esp32", "executors", "integrated-timers"]}
+
+embedded-hal        = "1.0.0"
+embedded-io         = "0.6.1"
+embedded-hal-async 	= "1.0.0"
+
+embassy-executor 	= "0.6.3"
+embassy-futures 	= "0.1.1"
+embassy-sync 		= "0.6.1"
+embassy-time 		= "0.3.2"
+
+fugit = "0.3.7"
+num-traits 			= { version = "0.2.19", default-features = false }
+log                 = { version = "0.4.22" }
+pipe 				= { git = "https://github.com/artpeixoto/pipe", version = "0.1.0" }
+dht 				= { path="./patches/embedded-dht-rs", package="embedded-dht-rs", features=["dht11", "dht22", "dht20"] }
+regex 				= { version = "1.11.1", default-features = false }
+
+
+[profile.dev]
+# Rust debug is too slow.
+# For debug builds always builds with some optimization
+opt-level = 3
+codegen-units = 1
+lto = 'fat'
+
+[profile.release]
+codegen-units = 1 # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false

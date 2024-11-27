@@ -1,0 +1,163 @@
+{
+    "version": 1,
+    "editor": "wokwi",
+    "author": "artur.peixoto <arturokfya@gmail.com>",
+    "parts": [
+        {
+            "type": "board-esp32-devkit-c-v4",
+            "id": "esp",
+            "top": 0,
+            "left": -4.76,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-dht22",
+            "id": "dht1",
+            "top": -57.3,
+            "left": -101.4,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-led",
+            "id": "led1",
+            "top": 54,
+            "left": 148.2,
+            "attrs": {
+                "color": "red",
+                "flip": "1"
+            }
+        },
+        {
+            "type": "wokwi-led",
+            "id": "led2",
+            "top": -3.6,
+            "left": 148.2,
+            "attrs": {
+                "color": "blue",
+                "flip": "1"
+            }
+        },
+        {
+            "type": "wokwi-vcc",
+            "id": "vcc1",
+            "top": 19.96,
+            "left": -134.4,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-gnd",
+            "id": "gnd1",
+            "top": 76.8,
+            "left": -67.8,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-gnd",
+            "id": "gnd2",
+            "top": 96,
+            "left": 210.6,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-resistor",
+            "id": "r1",
+            "top": 52.8,
+            "left": 191.45,
+            "rotate": 90,
+            "attrs": {
+                "value": "1000"
+            }
+        }
+    ],
+    "connections": [
+        [
+            "esp:TX",
+            "$serialMonitor:RX",
+            "",
+            []
+        ],
+        [
+            "esp:RX",
+            "$serialMonitor:TX",
+            "",
+            []
+        ],
+        [
+            "dht1:GND",
+            "gnd1:GND",
+            "black",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "dht1:VCC",
+            "vcc1:VCC",
+            "red",
+            [
+                "v19.2",
+                "h-38.4"
+            ]
+        ],
+        [
+            "dht1:SDA",
+            "esp:26",
+            "green",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "r1:2",
+            "gnd2:GND",
+            "green",
+            [
+                "h0"
+            ]
+        ],
+        [
+            "led2:C",
+            "r1:1",
+            "green",
+            [
+                "v0",
+                "h18.8",
+                "v-9.6"
+            ]
+        ],
+        [
+            "led1:C",
+            "r1:1",
+            "green",
+            [
+                "v0",
+                "h18.8",
+                "v-57.6"
+            ]
+        ],
+        [
+            "led1:A",
+            "esp:18",
+            "green",
+            [
+                "v0"
+            ]
+        ],
+        [
+            "led2:A",
+            "esp:19",
+            "green",
+            [
+                "h-28.8",
+                "v38.4",
+                "h-38.4"
+            ]
+        ]
+    ],
+    "dependencies": {},
+    "serialMonitor": {
+        "display": "terminal",
+        "newline": "lf",
+        "convertEol": true 
+    }
+}
