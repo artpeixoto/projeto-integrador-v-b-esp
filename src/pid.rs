@@ -12,20 +12,24 @@ impl Pid {
     pub fn new(consts: PidConsts, timestep_sec: f32) -> Self {
         Self {
             previous_input	: 0.0,
-            integrated		: 0.0,
+            integrated      : 0.0,
             timestep		: timestep_sec,
             consts			: consts,
         }
     }
+    pub fn reset(&mut self) {
+        self.integrated = 0.0;
+        self.previous_input = 0.0;
+    }
     pub fn run_loop(&mut self, input: f32) -> f32 {
         let difference = (input - self.previous_input) / self.timestep;
-        let integrated = self.integrated + ((input + self.previous_input) / 2.0) * self.timestep;
+        let integrated = ((input + self.previous_input) / 2.0) * self.timestep;
 
         self.previous_input = input;
-        self.integrated = integrated;
+        self.integrated += integrated;
 
         let output =
-            self.consts.d * difference + self.consts.i * integrated + self.consts.p * input;
+            self.consts.d * difference + self.consts.i * self.integrated + self.consts.p * input;
         output
     }
 }
